@@ -15,12 +15,11 @@ shinyServer(function(input, output) {
   Dataset <- reactive({
     
     file1 = input$file_1
-    if (is.null(file1$datapath)) { return(NULL) } else
+    if (is.null(file_1$datapath)) { return(NULL) } else
     {
       
       require(stringr)
-      #Data <- readLines(file1$datapath)
-      Data <- readtext(file1$datapath, encoding = "UTF-8")
+      Data <- readtext(file_1$datapath, encoding = "UTF-8")
       Data  =  str_replace_all(Data, "<.*?>", "")
       return(Data)
       
@@ -28,7 +27,7 @@ shinyServer(function(input, output) {
   })  
   
   an <- reactive({
-    un_model = udpipe_load_model(input$file2$datapath)
+    un_model = udpipe_load_model(input$file_2$datapath)
     txt1 <- udpipe_annotate(un_model, Dataset())
     txt1 <- as.data.frame(txt1)
     return(txt1)
@@ -45,7 +44,7 @@ shinyServer(function(input, output) {
   output$Cooccurance <- renderPlot(
     {
       
-      un_model = udpipe_load_model(input$file2$datapath)
+      un_model = udpipe_load_model(input$file_2$datapath)
       txt <- udpipe_annotate(un_model, Dataset())
       txt <- as.data.frame(txt)
       data_cooc <- udpipe::cooccurrence(x = subset(txt, upos %in% input$myupos), term = "lemma", 
