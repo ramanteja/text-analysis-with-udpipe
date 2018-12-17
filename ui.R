@@ -1,14 +1,7 @@
-#reactive values act as data streams that flow through your app, the input list is a list of reactive values 
-#The values show current state of inputs,  
-
-
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+#Shiny App By:
+#Preeti Agarwal: PGID 11810054
+#Raman Teja Venigalla: PGID 11810027
+#Ashwani Prakash Singh: PGID 11810076
 
 #setwd("H:\\ISB\\Term-1\\Text Analytics\\Assignment\\PA-Code")
 
