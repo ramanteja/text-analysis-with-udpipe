@@ -68,7 +68,7 @@ shinyUI(
                            "Noun" = "NOUN",
                            "Verb"= "VERB"),
       #Default selection
-      selected = c("ADJ","NOUN","VERB"),
+      selected = c("ADJ","NOUN","PROPN"),
       width = '100%'
       ),
       
