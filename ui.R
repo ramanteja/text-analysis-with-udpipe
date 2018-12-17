@@ -63,8 +63,8 @@ shinyUI(
   sidebarLayout(
     sidebarPanel(
       
-      fileInput("file_1", "Choose a text file you want to analyse"),
-      fileInput("file_2", "Choose the UDPIPE MODEL file"),
+      fileInput("txtfile", "Choose a text file you want to analyse"),
+      fileInput("udmfile", "Choose the UDPIPE MODEL file"),
       tags$hr(),
       
       #checkbox
