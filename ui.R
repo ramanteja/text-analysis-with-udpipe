@@ -79,9 +79,9 @@ shinyUI(
       width = '100%'
       ),
       
-      sliderInput("freq", "Minimum Frequency in Co-Occurance Graph:", min = 0,  max = 50, value = 30),
-      sliderInput("freq1", "Minimum Frequency in wordcloud:", min = 0,  max = 50, value = 5),
-      sliderInput("max1", "Maximum no of words in wordcloud:", min = 1,  max = 300, value = 100)
+      sliderInput("freq", "Minimum Frequency in Co-Occurance Graph:", min = 0,  max = 75, value = 25),
+      sliderInput("freq1", "Minimum Frequency in wordcloud:", min = 0,  max = 75, value = 7),
+      sliderInput("max1", "Maximum no of words in wordcloud:", min = 1,  max = 500, value = 105)
       ),
 mainPanel(
   tabsetPanel(type = "tabs",
