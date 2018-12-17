@@ -9,25 +9,25 @@ options(shiny.maxRequestSize=30*1024^2)
 shinyServer(function(input, output) {
   
   udmodel <- reactive({
-    file2 = input$file_2$datapath
+    udmfile = input$udmfile$datapath
   })
   
   Dataset <- reactive({
     
-    file1 = input$file_1
-    if (is.null(file_1$datapath)) { return(NULL) } else
+    txtfile = input$txtfile
+    if (is.null(txtfile$datapath)) { return(NULL) } else
     {
       
       require(stringr)
-      Data <- readtext(file_1$datapath, encoding = "UTF-8")
+      Data <- readtext(txtfile$datapath, encoding = "UTF-8")
       Data  =  str_replace_all(Data, "<.*?>", "")
       return(Data)
       
     }
   })  
   
-  an <- reactive({
-    un_model = udpipe_load_model(input$file_2$datapath)
+  annt <- reactive({
+    un_model = udpipe_load_model(input$udmfile$datapath)
     txt1 <- udpipe_annotate(un_model, Dataset())
     txt1 <- as.data.frame(txt1)
     return(txt1)
@@ -36,7 +36,7 @@ shinyServer(function(input, output) {
   
   output$Annotate <- renderDataTable(
     {
-      out <- an()
+      out <- annt()
       return(out)
     }
   )
@@ -44,7 +44,7 @@ shinyServer(function(input, output) {
   output$Cooccurance <- renderPlot(
     {
       
-      un_model = udpipe_load_model(input$file_2$datapath)
+      un_model = udpipe_load_model(input$udmfile$datapath)
       txt <- udpipe_annotate(un_model, Dataset())
       txt <- as.data.frame(txt)
       data_cooc <- udpipe::cooccurrence(x = subset(txt, upos %in% input$myupos), term = "lemma", 
@@ -68,14 +68,14 @@ shinyServer(function(input, output) {
   output$plot1 = renderPlot({
     if('NOUN'  %in% input$myupos)
     {
-      all_nouns = an() %>% subset(., upos %in% "NOUN") 
+      all_nouns = annt() %>% subset(., upos %in% "NOUN") 
       top_nouns = txt_freq(all_nouns$lemma)
       wordcloud(words = top_nouns$key, 
                 freq = top_nouns$freq, 
                 min.freq = input$freq1, 
                 max.words = input$max1,
                 random.order = FALSE, 
-                colors = brewer.pal(6, "Dark2"))
+                colors = brewer.pal(7,"Accent"))
     } 
     else
     {return(NULL)}
@@ -84,14 +84,14 @@ shinyServer(function(input, output) {
   output$plot2 = renderPlot({
     if('VERB'  %in% input$myupos)
     {
-      all_verbs = an() %>% subset(., upos %in% "VERB") 
+      all_verbs = annt() %>% subset(., upos %in% "VERB") 
       top_verbs = txt_freq(all_verbs$lemma)
       wordcloud(words = top_verbs$key, 
                 freq = top_verbs$freq, 
                 min.freq = input$freq1, 
                 max.words = input$max1,
                 random.order = FALSE, 
-                colors = brewer.pal(6, "Dark2"))
+                colors = brewer.pal(7,"Accent"))
     } 
     else
     {return(NULL)}
@@ -103,14 +103,14 @@ shinyServer(function(input, output) {
     
     if('ADV'  %in% input$myupos)
     {
-      all_adverbs = an() %>% subset(., upos %in% "ADV") 
+      all_adverbs = annt() %>% subset(., upos %in% "ADV") 
       top_adverbs = txt_freq(all_adverbs$lemma)
       wordcloud(words = top_adverbs$key, 
                 freq = top_adverbs$freq, 
                 min.freq = input$freq1, 
                 max.words = input$max1,
                 random.order = FALSE, 
-                colors = brewer.pal(6, "Dark2"))
+                colors = brewer.pal(7,"Accent"))
     } 
     else
     {return(NULL)}
@@ -120,14 +120,14 @@ shinyServer(function(input, output) {
     
     if('ADJ'  %in% input$myupos)
     {
-      all_adjec = an() %>% subset(., upos %in% "ADJ") 
+      all_adjec = annt() %>% subset(., upos %in% "ADJ") 
       top_adjec = txt_freq(all_adjec$lemma)
       wordcloud(words = top_adjec$key, 
                 freq = top_adjec$freq, 
                 min.freq = input$freq1, 
                 max.words = input$max1,
                 random.order = FALSE, 
-                colors = brewer.pal(6, "Dark2"))
+                colors = brewer.pal(7,"Accent"))
     } 
     else
     {return(NULL)}
@@ -139,14 +139,14 @@ shinyServer(function(input, output) {
     
     if('PROPN'  %in% input$myupos)
     {
-      all_adjec = an() %>% subset(., upos %in% "PROPN") 
+      all_adjec = annt() %>% subset(., upos %in% "PROPN") 
       top_adjec = txt_freq(all_adjec$lemma)
       wordcloud(words = top_adjec$key, 
                 freq = top_adjec$freq, 
                 min.freq = input$freq1, 
                 max.words = input$max1,
                 random.order = FALSE, 
-                colors = brewer.pal(6, "Dark2"))
+                colors = brewer.pal(7,"Accent"))
     } 
     else
     {return(NULL)}
